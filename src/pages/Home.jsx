@@ -2,8 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
-import Navbar from 'components/Navbar';
-import PokemonList from 'components/pokemon/PokemonList';
+import { PokemonList } from 'components/pokemon';
 
 import {
   selectCurrentUrl,
@@ -12,6 +11,7 @@ import {
   setPokemons,
   setPreviousPage,
 } from 'features/app/appSlice';
+import Layout from 'components/Layout';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -26,15 +26,15 @@ const Home = () => {
 
     function getPokemonInfo(results) {
       results.forEach(async (pokemon) => {
-        const res = await fetch(
+        const res = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         );
-        const data = await res.json();
+
         const sanitizePokemon = {
-          name: data.name,
-          image: data.sprites.other.dream_world.front_default,
-          types: data.types,
-          id: data.id,
+          name: res.data.name,
+          image: res.data.sprites.other.dream_world.front_default,
+          types: res.data.types,
+          id: res.data.id,
         };
         dispatch(setPokemons(sanitizePokemon));
       });
@@ -55,15 +55,9 @@ const Home = () => {
   }, [url, dispatch]);
 
   return (
-    <div className='container py-4 mx-auto'>
-      <header>
-        <h1 className='text-4xl font-bold tracking-widest text-center text-yellow drop-shadow-xl'>
-          PoK<span className='text-hot-pink'>é</span>MoN
-        </h1>
-        <Navbar />
-      </header>
+    <Layout>
       <PokemonList />
-    </div>
+    </Layout>
   );
 };
 
