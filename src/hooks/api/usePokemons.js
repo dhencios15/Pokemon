@@ -12,10 +12,21 @@ export async function fetchPokemons(params) {
 
 export async function fetchOnePokeon(id) {
   return await Api.get(`/pokemon/${id}`)
-    .then((res) => res.data)
-    .catch((err) => err.response.data);
+    .then((res) => {
+      const { name, sprites, stats, types, height, weight } = res.data;
+      const pokemon = {
+        name,
+        sprites,
+        stats,
+        types,
+        height,
+        weight,
+      };
+      return pokemon;
+    })
+    .catch((err) => err.response);
 }
 
-export function usePokemons(params = { limit: 20 }) {
+export function usePokemons(params) {
   return useQuery(['pokemons', params], () => fetchPokemons(params));
 }
