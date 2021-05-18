@@ -1,8 +1,13 @@
-const { default: PokemonCardButtons } = require('./PokemonCardButtons');
+import React from 'react';
 
-const PokemonCard = ({ pokemon }) => {
+import PokemonCardButtons from './PokemonCardButtons';
+
+const PokemonCard = React.forwardRef(({ pokemon }, ref) => {
   return (
-    <div className='relative z-30 flex flex-col items-center px-4 py-2 duration-500 transform rounded-lg group drop-shadow-lg bg-slate-base hover:scale-105'>
+    <div
+      ref={ref}
+      className='relative z-30 flex flex-col items-center px-4 py-2 duration-500 transform rounded-lg group drop-shadow-lg bg-slate-base hover:scale-105'
+    >
       <img className='w-32 h-32' src={pokemon.image} alt={pokemon.name} />
 
       <div className='my-2'>
@@ -27,6 +32,6 @@ const PokemonCard = ({ pokemon }) => {
       <PokemonCardButtons name={pokemon.name} />
     </div>
   );
-};
+});
 
 export default PokemonCard;

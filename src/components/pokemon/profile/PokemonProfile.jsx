@@ -4,13 +4,15 @@ import PokemonImages from './PokemonImages';
 import PokemonTypes from './PokemonTypes';
 
 import { pokemonColor } from './pokemonColor';
+import BackButton from 'components/BackButton';
 
 const PokemonProfile = ({ pokemon }) => {
   const { back_default, back_shiny, front_default, front_shiny } =
     pokemon.image;
 
   return (
-    <div className='grid py-4 place-items-center'>
+    <div className='relative grid py-4 place-items-center'>
+      <BackButton className='absolute top-0 left-1.5' />
       <img
         className='transform translate-y-8 w-52 h-52 drop-shadow-lg'
         src={pokemon.image.other.dream_world.front_default}
