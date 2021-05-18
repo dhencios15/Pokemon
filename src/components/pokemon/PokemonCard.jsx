@@ -11,8 +11,11 @@ const PokemonCard = ({ pokemon }) => (
 
       {/* Pokemon types  */}
       <div className='space-x-2'>
-        {pokemon.types.map(({ type }) => (
-          <small className='px-2 bg-black rounded-lg select-none bg-opacity-5'>
+        {pokemon.types.map(({ type }, i) => (
+          <small
+            key={i}
+            className='px-2 bg-black rounded-lg select-none bg-opacity-5'
+          >
             {type.name}
           </small>
         ))}
