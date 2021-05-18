@@ -1,21 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { store } from './app/store';
 import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import 'assets/styles/tailwind.css';
+import { persistor, store } from './app/store';
+
+import App from './App';
+import ThemedSuspense from 'components/ThemeSuspense';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+let app = document.getElementById('root');
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  <React.Suspense fallback={<ThemedSuspense />}>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <PersistGate loading={<ThemedSuspense />} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </QueryClientProvider>
+  </React.Suspense>,
+  app
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
