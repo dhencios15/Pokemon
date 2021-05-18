@@ -1,20 +1,21 @@
 import axios from 'axios';
 import React from 'react';
 import { useParams } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Layout from 'components/Layout';
 import { PokemonProfile } from 'components/pokemon';
 
 import { useDocumentTitle } from 'hooks/useDocumentTitle';
-import { setError, setLoading } from 'features/app/appSlice';
+import { selectLoading, setError, setLoading } from 'features/app/appSlice';
+import PokemonProfileSkeleton from 'components/pokemon/profile/PokemonProfileSkeleton';
 
 const Pokemon = () => {
   const dispatch = useDispatch();
   const { pokemon: PokemonName } = useParams();
 
   const [pokemon, setPokemon] = React.useState(null);
-
+  const isLoading = useSelector(selectLoading);
   useDocumentTitle(`Pokemon | ${PokemonName}`);
 
   React.useEffect(() => {
@@ -42,6 +43,7 @@ const Pokemon = () => {
         const color = await getPokemonColor(sanitizePokemon.species.url);
 
         setPokemon({ ...sanitizePokemon, color });
+        dispatch(setLoading(false));
       })
       .catch((err) => {
         dispatch(setError('Unable to fetch pokemon'));
@@ -53,7 +55,9 @@ const Pokemon = () => {
   return (
     <Layout>
       <section className='p-8 py-4 m-4 border rounded-lg shadow-lg bg-navy-lighter border-navy-light bg-opacity-5'>
-        {pokemon ? (
+        {isLoading ? (
+          <PokemonProfileSkeleton />
+        ) : pokemon ? (
           <PokemonProfile pokemon={pokemon} />
         ) : (
           <h1 className='text-2xl font-bold text-center text-white'>

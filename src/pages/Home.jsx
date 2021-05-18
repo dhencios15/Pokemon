@@ -18,7 +18,6 @@ const Home = () => {
 
   // Selectors
   const url = useSelector(selectCurrentUrl);
-
   // storing to redux local
   React.useEffect(() => {
     dispatch(setLoading(true));

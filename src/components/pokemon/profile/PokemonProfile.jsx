@@ -1,7 +1,9 @@
 import React from 'react';
+import PokemonImages from './PokemonImages';
+
+import PokemonTypes from './PokemonTypes';
 
 const PokemonProfile = ({ pokemon }) => {
-  console.log(pokemon);
   const { back_default, back_shiny, front_default, front_shiny } =
     pokemon.image;
 
@@ -21,23 +23,16 @@ const PokemonProfile = ({ pokemon }) => {
           {pokemon.name}
         </h1>
         <div className='flex flex-col items-center mt-2'>
-          <div className='flex items-center space-x-4'>
-            {pokemon.types.map(({ type }) => (
-              <span
-                className='px-2 font-semibold text-black bg-black rounded-lg bg-opacity-10 text-opacity-70'
-                key={type.name}
-              >
-                {type.name}
-              </span>
-            ))}
-          </div>
+          {/* Pokemon Types  */}
+          <PokemonTypes types={pokemon.types} />
 
-          <div className='grid grid-cols-2 mt-5 gap-x-4 gap-y-2'>
-            <img className='w-28 h-28' src={front_default} alt='front' />
-            <img className='w-28 h-28' src={front_shiny} alt='front_shiny' />
-            <img className='w-28 h-28' src={back_default} alt='back' />
-            <img className='w-28 h-28' src={back_shiny} alt='front_shiny' />
-          </div>
+          {/* Pokemon Images  */}
+          <PokemonImages
+            front_default={front_default}
+            front_shiny={front_shiny}
+            back_default={back_default}
+            back_shiny={back_shiny}
+          />
         </div>
       </div>
     </div>

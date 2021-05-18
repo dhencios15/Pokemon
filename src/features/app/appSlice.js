@@ -48,6 +48,7 @@ export const appSlice = createSlice({
     },
     setError: (state, { payload }) => {
       state.error = payload;
+      state.isLoading = false;
     },
   },
 });
