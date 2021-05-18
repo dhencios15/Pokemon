@@ -21,6 +21,7 @@ module.exports = {
         green: {
           custom: '#64ffda',
         },
+        yellow: '#ffcb04',
         'hot-pink': '#fd2d78',
       },
       rotate: {
