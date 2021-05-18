@@ -1,7 +1,9 @@
 import React from 'react';
-import PokemonImages from './PokemonImages';
 
+import PokemonImages from './PokemonImages';
 import PokemonTypes from './PokemonTypes';
+
+import { pokemonColor } from './pokemonColor';
 
 const PokemonProfile = ({ pokemon }) => {
   const { back_default, back_shiny, front_default, front_shiny } =
@@ -14,10 +16,11 @@ const PokemonProfile = ({ pokemon }) => {
         src={pokemon.image.other.dream_world.front_default}
         alt={pokemon.name}
       />
+      {/* Pokemoncolor: Content bg color, need switch function to prevent bug on load */}
       <div
-        className={`rounded-lg grid place-items-center w-screen/1.5 ${
-          pokemon.color ?? 'bg-slate-light'
-        } pt-10 pb-5`}
+        className={`${pokemonColor(
+          pokemon.color
+        )} rounded-lg grid place-items-center w-screen/1.5 pt-10 pb-5`}
       >
         <h1 className='text-3xl font-bold text-center text-black capitalize text-opacity-70'>
           {pokemon.name}

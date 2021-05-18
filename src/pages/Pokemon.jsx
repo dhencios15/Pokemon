@@ -24,7 +24,7 @@ const Pokemon = () => {
 
     async function getPokemonColor(url) {
       const res = await axios.get(url);
-      return `bg-${res.data.color.name}-400`;
+      return res.data.color.name;
     }
 
     axios
