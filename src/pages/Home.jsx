@@ -2,8 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
-import { PokemonList } from 'components/pokemon';
-
 import {
   selectCurrentUrl,
   setLoading,
@@ -11,7 +9,9 @@ import {
   setPokemons,
   setPreviousPage,
 } from 'features/app/appSlice';
+
 import Layout from 'components/Layout';
+import { PokemonList } from 'components/pokemon';
 
 const Home = () => {
   const dispatch = useDispatch();

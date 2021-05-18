@@ -6,7 +6,7 @@ const initialState = {
   pokemons: [],
   nextPage: null,
   previousPage: null,
-  currentUrl: 'https://pokeapi.co/api/v2/pokemon',
+  currentUrl: 'https://pokeapi.co/api/v2/pokemon?limit=8',
 };
 
 export const appSlice = createSlice({
